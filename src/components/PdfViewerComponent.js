@@ -19,12 +19,12 @@ export default function PdfViewerComponent(props) {
 				baseUrl: `${window.location.protocol}//${window.location.host}/${process.env.PUBLIC_URL}`,
 			    
             });
-            PSPDFKit.addEventListener("ready", () => {
-				// Get the rectangle annotations in the document.
-				const rectangles = PSPDFKit.getAnnotations((annotation) => annotation.type === "rectangle");
-				console.log(rectangles); // This will log an array of rectangle annotations to the console.
-			  });
-			  
+           PSPDFKit.addEventListener("createAnnotation", (annotation) => {
+  if (annotation.type === "rectangle") {
+    const { x, y, width, height } = annotation.rect;
+    console.log(`Rectangle created at (${x}, ${y}), width: ${width}, height: ${height}`);
+  }
+});
 		})();
 
 		return () => PSPDFKit && PSPDFKit.unload(container);

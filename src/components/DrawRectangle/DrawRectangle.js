@@ -1,12 +1,12 @@
 import './DrawRectangle.css';
 import {useEffect, useRef, useState} from 'react';
 
-const DrawRectangle = () => {
+const DrawRectangle = (props) => {
 
     let arr=[];
     const canvasRef = useRef(null);
     const contextRef = useRef(null);
-
+    
     const [isDrawing, setIsDrawing] = useState(false);
     const [rectangles, setRectangles] = useState([]);
     // const a={};const b={};
@@ -33,7 +33,9 @@ const DrawRectangle = () => {
         canvasOffSetY.current = canvasOffSet.left;
         
         rectangles.forEach(rectangle => {
+            context.fillStyle = "rgba(255, 170, 102, 0.5)"
             context.fillRect(rectangle.x, rectangle.y, rectangle.width, rectangle.height);
+            // context.fillStyle = "rgba(255, 255, 255, 0.5)"
           });
         
       
@@ -42,7 +44,7 @@ const DrawRectangle = () => {
         context.save()
        
     }, [rectangles]);
-
+    
     const startDrawingRectangle = ({nativeEvent}) => {
        
         nativeEvent.preventDefault();
@@ -82,9 +84,18 @@ const DrawRectangle = () => {
 
         contextRef.current.strokeRect(startX.current, startY.current, rectWidht, rectHeight);
     };
+    const show = () => {
+        
+        return (
+            <h1  style={{position:'absolute',top:'10px',right:'20px'}}>
+                {arr}
+            </h1>
+          );
     
+        }
     const stopDrawingRectangle = () => {
-        contextRef.current.fillRect(startX.current,startY.current,rectWidht,rectHeight)
+        
+        // contextRef.current.fillRect(startX.current,startY.current,rectWidht,rectHeight)
         setRectangles(rectangles => [...rectangles, {
             x: startX.current,
             y: startY.current,
@@ -95,23 +106,40 @@ const DrawRectangle = () => {
        
         arr.push(startX.current);
         arr.push(startY.current);
-        arr.push(rectWidht)
-        arr.push(rectHeight)
+        arr.push(rectWidht);
+        arr.push(rectHeight);
+        <h1 id='a' style={{position:'absolute',top:'10px',right:'20px'}}>{arr[0]}</h1>
+        
         console.log(arr)
+        return (
+            <>
+              {/* Your JSX code goes here */}
+              { show() }
+            </>
+          );
+       
        
 
     };
 
     return (
-        <div>
+        
+        <div {...props}>
+           
             <canvas className="canvas-container-rect"
                 ref={canvasRef}
                 onMouseDown={startDrawingRectangle}
                 onMouseMove={drawRectangle}
                 onMouseUp={stopDrawingRectangle}
+        
                 //onMouseLeave={stopDrawingRectangle}  
                  >
+                    <div></div>
+                    
+                     
             </canvas>
+            { show() } 
+           
         </div>
     )
 }

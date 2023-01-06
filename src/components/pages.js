@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import { Document,Page } from 'react-pdf/dist/esm/entry.webpack';
 import '../App.css';
 import DrawRectangle from './DrawRectangle/DrawRectangle';
-function Mypdf() {
+function Mypdf(props) {
    
   
   const [numPages, setNumPages] = useState(null);
@@ -26,7 +26,7 @@ function Mypdf() {
   }
 
   return (
-    <div className="App">
+    <>
       {/* <header className="App-header">
         <Document file="w.pdf" onLoadSuccess={onDocumentLoadSuccess}>
           <Page height="600" pageNumber={pageNumber} />
@@ -39,30 +39,30 @@ function Mypdf() {
           pageNumber < numPages &&
           <button onClick={changePageNext}>Next Page</button>
         }
-      </header> */}
-      <center>
-        <div>
-        
-          <Document file="w.pdf " onLoadSuccess={onDocumentLoadSuccess}>
+      </header> */}        
+        <DrawRectangle 
+        className="App"
+        {...props}/>
+          
+          <Document file="w.pdf " 
+            onLoadSuccess={onDocumentLoadSuccess} 
+            style={{position: "absolute"}}>
         
             {Array.from(
               new Array(numPages),
               (el,index) => (
-                <DrawRectangle>
+                
                 <Page 
 
                   key={`page_${index+1}`}
                   pageNumber={index+1}
                 />
-                </DrawRectangle>
+                
               )
             )}
             
           </Document>
-          
-        </div>
-      </center>
-    </div>
+    </>
   );
   
  
