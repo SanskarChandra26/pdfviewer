@@ -1,24 +1,18 @@
-import logo from './logo.svg';
 import './App.css';
-
+// import DrawingCanvas from './components/DrawingCanvas/DrawingCanvas';
+import DrawRectangle from './components/DrawRectangle/DrawRectangle';
+import Mypdf from './components/pages';
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+    {/* <DrawingCanvas></DrawingCanvas> */}
+   
+      
+      <DrawRectangle></DrawRectangle>
+  
+  
     </div>
+
   );
 }
 
